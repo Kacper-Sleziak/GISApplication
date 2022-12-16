@@ -1,0 +1,54 @@
+@import "node_modules/ol/ol.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+#map {
+  top: 0;
+  bottom: 0;
+  height: 80%;
+  width: 100%;
+}
+
+.flex-container {
+  gap: 30px;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.541);
+  display: flex;
+}
+
+.flex-1 {
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: auto;
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+
+}
+
+#feature-name {
+  background-color: rgba(85, 85, 85, 0.712);
+  width: 150px;
+  color: #fff;
+  text-align: center;
+  border-radius: 1px;
+  padding: 2px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -80px;
+  border-radius: 20px ;
+}
+
