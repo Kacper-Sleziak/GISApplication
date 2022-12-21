@@ -8,6 +8,7 @@ import { map } from './map'
 
 const boundaryArr = []
 
+// Fetching boundaries of NY city from open API
 axios
   .get('https://nominatim.openstreetmap.org/search.php?q=New%20York&polygon_geojson=1&format=json')
   .then(response => {
@@ -27,6 +28,7 @@ axios
     const vectorLayer = new VectorLayer({
       source: new VectorSource({}),
       visible: true,
+      title: 'BoundariesLayer',
       style: boundariesCityStyle
     })
 

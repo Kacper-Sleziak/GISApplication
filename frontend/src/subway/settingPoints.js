@@ -27,6 +27,7 @@ axios
 
       const layerVector = new VectorLayer({
         source: new VectorSource({}),
+        title: 'SubwaysLayer',
         style: subwayPointStyle
       })
 
