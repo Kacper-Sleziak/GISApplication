@@ -19,8 +19,13 @@ let checkboxStatment = false
 const subwaysCheckbox = document.getElementById('subwayStations')
 
 // Event Listener for displaying subway stations
-subwaysCheckbox.addEventListener('click', function () {
-  checkboxStatment = !checkboxStatment
+subwaysCheckbox.addEventListener('change', function () {
+  console.log(subwaysCheckbox.checked)
+  if (subwaysCheckbox.checked) {
+    checkboxStatment = true
+  } else {
+    checkboxStatment = false
+  }
   drawStationsStatmentsCheck(zoomStatment, checkboxStatment)
 })
 

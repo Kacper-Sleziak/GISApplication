@@ -28,6 +28,10 @@ const subwayStationLayerGroup = new LayerGroup({
   visible: false
 })
 
+const subwayStationAreaLayerGroup = new LayerGroup({
+  visible: false
+})
+
 const openStreetMapStandard = new TileLayer({
   source: new OSM(),
   visible: true,
@@ -77,4 +81,4 @@ for (const layerElement of layerElements) {
   })
 }
 
-export { map, subwayStationLayerGroup }
+export { map, subwayStationLayerGroup, subwayStationAreaLayerGroup }
