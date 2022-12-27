@@ -25,7 +25,7 @@ const map = new Map({
 })
 
 const subwayStationLayerGroup = new LayerGroup({
-  visible: false
+  visible: true
 })
 
 const subwayStationAreaLayerGroup = new LayerGroup({
@@ -66,17 +66,27 @@ map.addLayer(baseLayerGroup)
 // Layer Switcher
 
 // Get Radio Buttons
-const layerElements = document.querySelectorAll('.form-check > input[type=radio]')
+// const layerElements = document.querySelectorAll('.form-check > input[type=radio]')
+const layerElements = document.getElementById('chooseLayer').children
+
+const clearActive = () => {
+  for (const layerElement of layerElements) {
+    layerElement.className = 'dropdown-item'
+  }
+}
 
 // Event listener of changing layer
 for (const layerElement of layerElements) {
-  layerElement.addEventListener('change', function () {
-    const choosenLayerValue = this.value
+  layerElement.addEventListener('click', function () {
+    const choosenLayer = this
 
     // Comparing values from button group with values from baseLayerGroup
     baseLayerGroup.getLayers().forEach(function (element, index, array) {
+      clearActive()
+      choosenLayer.className = 'dropdown-item active'
+
       const layerTitle = element.get('title')
-      element.setVisible(layerTitle === choosenLayerValue)
+      element.setVisible(layerTitle === choosenLayer.id)
     })
   })
 }

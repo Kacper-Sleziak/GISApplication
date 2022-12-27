@@ -5,7 +5,6 @@ const drawStationsStatmentsCheck = (zoomStatment, checkboxStatment) => {
 
   if (checkboxStatment && zoomStatment) {
     subwayStationLayerGroup.setVisible(true)
-    featureNameLabel.style.visibility = 'visible'
   } else {
     subwayStationLayerGroup.setVisible(false)
     featureNameLabel.style.visibility = 'hidden'
@@ -14,19 +13,25 @@ const drawStationsStatmentsCheck = (zoomStatment, checkboxStatment) => {
 
 // Stations will show on map when both of parameters will be set on true
 let zoomStatment = true
-let checkboxStatment = false
+let buttonStatment = true
 
-const subwaysCheckbox = document.getElementById('subwayStations')
+const subwaysShowAll = document.getElementById('showAll')
+const subwaysInArea = document.getElementById('inArea')
+const drawButtonContainer = document.getElementById('draw_button_con')
+const drawButton = document.getElementById('drawBT')
 
 // Event Listener for displaying subway stations
-subwaysCheckbox.addEventListener('change', function () {
-  console.log(subwaysCheckbox.checked)
-  if (subwaysCheckbox.checked) {
-    checkboxStatment = true
-  } else {
-    checkboxStatment = false
+subwaysShowAll.addEventListener('click', function () {
+  if (subwaysInArea.className === 'dropdown-item active') {
+    subwaysShowAll.className = 'dropdown-item active'
+    subwaysInArea.className = 'dropdown-item'
+    drawButtonContainer.style.visibility = 'hidden'
+    drawButton.innerText = 'Draw'
+    drawButton.className = 'btn btn-success'
+
+    buttonStatment = !buttonStatment
   }
-  drawStationsStatmentsCheck(zoomStatment, checkboxStatment)
+  drawStationsStatmentsCheck(zoomStatment, buttonStatment)
 })
 
 // Event Listener
@@ -40,7 +45,7 @@ map.on('moveend', function (e) {
     } else {
       zoomStatment = false
     }
-    drawStationsStatmentsCheck(zoomStatment, checkboxStatment)
+    drawStationsStatmentsCheck(zoomStatment, buttonStatment)
   }
 })
 

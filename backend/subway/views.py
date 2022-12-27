@@ -2,7 +2,7 @@ from rest_framework import generics
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import NycSubwayStations,NycSubwayStationsGeog
+from .models import NycSubwayStations
 from .serializers import StationSerializer
 from .queries import get_subway_stations_as_geogs, get_subway_stations_as_geogs_in_area
 from django.utils.datastructures import MultiValueDictKeyError
@@ -14,7 +14,10 @@ class SubwayStationList(generics.ListAPIView):
 
 
 def tuple_to_subway_dict(tuple):
-
+    """
+    Common function for views that return subway stations.
+    Converts tuple given from data base query to python dict/JSON format
+    """
     x = tuple[0]
     y = tuple[1]
     name = tuple[2]
@@ -26,6 +29,9 @@ def tuple_to_subway_dict(tuple):
     return dict
 
 class SubwayStationsGeogs(APIView):
+    """
+    View returns all subway stations
+    """
     def get(self, request):
         subways = get_subway_stations_as_geogs()
 
@@ -35,6 +41,11 @@ class SubwayStationsGeogs(APIView):
         return Response(status=status.HTTP_200_OK, data=subways)
 
 class SubwayStationsGeogsInArea(APIView):
+        """
+        View returns all subways stations in area.
+        Area is defined as a circle by X, Y and radius parameteres in body
+        """
+
         def post(self, request):
             try:
                 X = float(request.data['X'])

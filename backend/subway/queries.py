@@ -19,6 +19,10 @@ def get_subway_stations_as_geogs():
     return rows
 
 def get_subway_stations_as_geogs_in_area(X, Y, radius):
+    """
+    return list of tuples in format (x_coordinate, y_coordinate, subway_name)
+    for given paramaters X, Y and radius of circle area where X and Y are center of the circle 
+    """
     with connection.cursor() as cursor:
         cursor.execute(
         """

@@ -7,22 +7,27 @@
 html, body {
   margin: 0;
   height: 100%;
+  background-color: rgb(208, 218, 207);
 }
 
 #map {
+  /* margin-left: 18%; */
   top: 0;
   bottom: 0;
-  height: 80%;
+  height: 100%;
   width: 100%;
 }
 
 .flex-container {
+  width: 18%;
+  position: fixed;
+  top: 0;
+  left: 0;
   gap: 30px;
-  flex-direction: row;
+  flex-direction: column;
   align-content: center;
   align-items: center;
   justify-content: center;
-  background-color: rgb(255, 255, 255);
   display: flex;
 }
 
@@ -34,6 +39,8 @@ html, body {
   display: flex;
   flex-direction: column;
   margin-right: 30px;
+  border-color: black;
+  border-bottom: 2px;
 
 }
 
@@ -50,5 +57,26 @@ html, body {
   left: 50%;
   margin-left: -80px;
   border-radius: 20px ;
+}
+
+#main_con {
+  top: 20px;
+  left: 5%;
+  position: absolute;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+#draw_button_con {
+  visibility: hidden;
+  bottom: 5%;
+  right: 5%;
+  position: absolute;
+}
+
+.dropdown {
+  margin-right: 5px;
 }
 

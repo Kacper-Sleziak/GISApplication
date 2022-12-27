@@ -3,14 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="https://openlayers.org/favicon.ico" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Using OpenLayers with Vite</title>
   </head>
   <body>
     <div id="map"></div>
-    <div class="shadow-sm p-3 mb-5 bg-white rounded">
+    <!-- <div class="shadow-sm p-3 mb-5 bg-white rounded">
     <div class="flex-container">
       <div class="flex-1">
         <h2>Choose Layer</h2>
@@ -21,16 +24,52 @@
         </div>
     </div>
       <div class="flex-1">
-        <h2>Choose Geoms</h2>
+        <h2>Show All Subways</h2>
         <div class="form-check">
           <input type="checkbox" id="subwayStations" name="subwayStations">
           <label for="subwayStations">Subway Stations</label><br>
         </div>
       </div>
+
+      <div class="flex-1">
+        <h2>Drawing Area</h2>
+        <div class="form-check">
+          <input type="checkbox" id="subwayStationsArea" name="subwayStationsArea">
+          <label for="subwayStations">Drawing</label><br>
+        </div>
+      </div>
     </div>
+    </div> -->
+    <div id="main_con">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Subway Stations
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item active" id="showAll" href="#">Show All</a>
+          <a class="dropdown-item" id="inArea" href="#">Show In Area</a>
+        </div>
+      </div>
+      
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="chooseLayerBT" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Choose Layer
+        </button>
+        <div class="dropdown-menu" aria-labelledby="chooseLayerBT" id="chooseLayer">
+          <a class="dropdown-item active" id="OSMStandard" href="#">OSM Standard</a>
+          <a class="dropdown-item" id="StamenTerrain" href="#">Stamen Terrain</a>
+          <a class="dropdown-item" id="StamenColoredWater" href="#">Stamen Colored Water</a>
+        </div>
+      </div>
     </div>
-  
+
+    <div id="draw_button_con">
+      <button type="button" id="drawBT" class="btn btn-success">Draw</button>
+    </div>
+
+
     <div id="feature-name"></div>
+
 
     <!-- <script type="module" src="./main.js"></script> -->
     <script type="module" src="./main.js"></script>

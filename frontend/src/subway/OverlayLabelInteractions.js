@@ -36,13 +36,15 @@ const selectInteraction = new Select({
   hitTolerance: 5
 })
 map.addInteraction(selectInteraction)
-
 // Appear overlayerLayer on select
 selectInteraction.on('select', function (e) {
   overlayLayer.setPosition(undefined)
   const selectedFeature = e.selected
 
   if (selectedFeature[0]) {
+    const featureNameLabel = document.getElementById('feature-name')
+    featureNameLabel.style.visibility = 'visible'
+
     const subwayLabel = selectedFeature[0].values_.label
     const coordinates = selectedFeature[0].values_.geometry.flatCoordinates
     overlayFeatureName.innerHTML = subwayLabel
