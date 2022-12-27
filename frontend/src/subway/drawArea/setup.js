@@ -1,4 +1,4 @@
-import { map, subwayStationLayerGroup, subwayStationAreaLayerGroup } from '../map'
+import { map, subwayStationAreaLayerGroup } from '../../map'
 import { Draw, Modify, Snap } from 'ol/interaction'
 import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
@@ -6,7 +6,7 @@ import { Feature } from 'ol'
 import { GeometryCollection, Point, Polygon } from 'ol/geom.js'
 import { circular } from 'ol/geom/Polygon.js'
 import { getDistance } from 'ol/sphere.js'
-import { subwayPointStyle } from '../styles'
+import { subwayPointStyle } from '../../styles'
 import axios from 'axios'
 import Collection from 'ol/Collection'
 
@@ -98,38 +98,13 @@ draw.on('drawend', function () {
     })
 
   map.removeInteraction(draw)
+  const drawButton = document.getElementById('drawBT')
+  drawButton.innerText = 'Draw'
+  drawButton.className = 'btn btn-success'
 })
 
 draw.on('drawstart', function () {
   source.clear()
 })
 
-// Hanling switching to drawing mode
-const drawButton = document.getElementById('drawBT')
-drawButton.addEventListener('click', function () {
-  if (drawButton.innerText === 'Draw') {
-    drawButton.innerText = 'Drawing in progress'
-    drawButton.className = 'btn btn-warning'
-    map.addInteraction(draw)
-  } else {
-    drawButton.innerText = 'Draw'
-    drawButton.className = 'btn btn-success'
-    map.removeInteraction(draw)
-  }
-})
-
-const subwaysInArea = document.getElementById('inArea')
-const drawButtonContainer = document.getElementById('draw_button_con')
-const subwaysShowAll = document.getElementById('showAll')
-
-// Handling switching dropdown ,,Subway Stations"
-subwaysInArea.addEventListener('click', function () {
-  if (subwaysShowAll.className === 'dropdown-item active') {
-    subwaysInArea.className = 'dropdown-item active'
-    subwaysShowAll.className = 'dropdown-item'
-    drawButtonContainer.style.visibility = 'visible'
-  }
-})
-
-const drawAreaInitializer = undefined
-export default drawAreaInitializer
+export default draw

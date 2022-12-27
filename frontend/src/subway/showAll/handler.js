@@ -1,9 +1,9 @@
-import { map, subwayStationLayerGroup } from '../map'
+import { map, subwayStationLayerGroup } from '../../map'
 
-const drawStationsStatmentsCheck = (zoomStatment, checkboxStatment) => {
+const drawStationsStatmentsCheck = (zoomStatment, isShowAllSelected) => {
   const featureNameLabel = document.getElementById('feature-name')
-
-  if (checkboxStatment && zoomStatment) {
+  console.log()
+  if (isShowAllSelected && zoomStatment) {
     subwayStationLayerGroup.setVisible(true)
   } else {
     subwayStationLayerGroup.setVisible(false)
@@ -13,7 +13,7 @@ const drawStationsStatmentsCheck = (zoomStatment, checkboxStatment) => {
 
 // Stations will show on map when both of parameters will be set on true
 let zoomStatment = true
-let buttonStatment = true
+let isShowAllSelected = true
 
 const subwaysShowAll = document.getElementById('showAll')
 const subwaysInArea = document.getElementById('inArea')
@@ -29,9 +29,9 @@ subwaysShowAll.addEventListener('click', function () {
     drawButton.innerText = 'Draw'
     drawButton.className = 'btn btn-success'
 
-    buttonStatment = !buttonStatment
+    isShowAllSelected = true
+    drawStationsStatmentsCheck(zoomStatment, isShowAllSelected)
   }
-  drawStationsStatmentsCheck(zoomStatment, buttonStatment)
 })
 
 // Event Listener
@@ -45,7 +45,7 @@ map.on('moveend', function (e) {
     } else {
       zoomStatment = false
     }
-    drawStationsStatmentsCheck(zoomStatment, buttonStatment)
+    drawStationsStatmentsCheck(zoomStatment, isShowAllSelected)
   }
 })
 

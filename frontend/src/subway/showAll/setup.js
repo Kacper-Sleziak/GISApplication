@@ -3,8 +3,8 @@ import VectorLayer from 'ol/layer/Vector'
 import axios from 'axios'
 import VectorSource from 'ol/source/Vector'
 import { Feature } from 'ol'
-import { map, subwayStationLayerGroup } from '../map'
-import { subwayPointStyle } from '../styles'
+import { map, subwayStationLayerGroup } from '../../map'
+import { subwayPointStyle } from '../../styles'
 import Point from 'ol/geom/Point'
 
 const subwayCollection = new Collection()
