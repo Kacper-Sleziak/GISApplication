@@ -1,4 +1,4 @@
-import { map, subwayStationLayerGroup, subwayStationAreaLayerGroup } from './map'
+import { map, subwayStationLayerGroup, subwayStationAreaLayerGroup } from '../map'
 
 let zoomStatment = true
 const subwaysShowAll = document.getElementById('showAll')

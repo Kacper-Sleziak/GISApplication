@@ -1,5 +1,5 @@
 import { source } from '../drawArea/setup'
-import { displayStationsStatmentsCheck } from '../../displayHandler'
+import { displayStationsStatmentsCheck } from '../displayHandler'
 
 const subwaysShowAll = document.getElementById('showAll')
 const subwaysInArea = document.getElementById('inArea')
@@ -18,7 +18,6 @@ subwaysShowAll.addEventListener('click', function () {
     featureNameLabel.style.visibility = 'hidden'
 
     displayStationsStatmentsCheck()
-    // drawStationsStatmentsCheck(zoomStatment)
 
     // clearing draw
     source.clear()

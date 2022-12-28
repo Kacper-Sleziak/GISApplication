@@ -1,6 +1,7 @@
-import { map } from '../../map'
+import { map, subwayStationAreaLayerGroup } from '../../map'
 import draw from './setup'
-import { displayStationsStatmentsCheck } from '../../displayHandler'
+import { displayStationsStatmentsCheck } from '../displayHandler'
+import Collection from 'ol/Collection'
 
 const subwaysInArea = document.getElementById('inArea')
 const drawButtonContainer = document.getElementById('draw_button_con')
@@ -24,10 +25,15 @@ drawButton.addEventListener('click', function () {
 // Handling switching dropdown ,,Subway Stations"
 subwaysInArea.addEventListener('click', function () {
   if (subwaysShowAll.className === 'dropdown-item active') {
+    // clear previously found subways from area
+    const emptyCollection = new Collection()
+    subwayStationAreaLayerGroup.setLayers(emptyCollection)
+
     subwaysInArea.className = 'dropdown-item active'
     subwaysShowAll.className = 'dropdown-item'
     drawButtonContainer.style.visibility = 'visible'
     featureNameLabel.style.visibility = 'hidden'
+
     displayStationsStatmentsCheck()
   }
 })

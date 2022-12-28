@@ -1,5 +1,5 @@
 import { map, subwayStationAreaLayerGroup } from '../../map'
-import { Draw, Modify, Snap } from 'ol/interaction'
+import { Draw, Snap } from 'ol/interaction'
 import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 import { Feature } from 'ol'
