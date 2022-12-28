@@ -1,5 +1,11 @@
-import { map, subwayStationLayerGroup } from '../../map'
+import { map } from '../../map'
 import draw from './setup'
+import { displayStationsStatmentsCheck } from '../../displayHandler'
+
+const subwaysInArea = document.getElementById('inArea')
+const drawButtonContainer = document.getElementById('draw_button_con')
+const subwaysShowAll = document.getElementById('showAll')
+const featureNameLabel = document.getElementById('feature-name')
 
 // Hanling switching to drawing mode
 const drawButton = document.getElementById('drawBT')
@@ -15,17 +21,14 @@ drawButton.addEventListener('click', function () {
   }
 })
 
-const subwaysInArea = document.getElementById('inArea')
-const drawButtonContainer = document.getElementById('draw_button_con')
-const subwaysShowAll = document.getElementById('showAll')
-
 // Handling switching dropdown ,,Subway Stations"
 subwaysInArea.addEventListener('click', function () {
   if (subwaysShowAll.className === 'dropdown-item active') {
     subwaysInArea.className = 'dropdown-item active'
     subwaysShowAll.className = 'dropdown-item'
     drawButtonContainer.style.visibility = 'visible'
-    subwayStationLayerGroup.setVisible(false)
+    featureNameLabel.style.visibility = 'hidden'
+    displayStationsStatmentsCheck()
   }
 })
 

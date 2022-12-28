@@ -36,6 +36,7 @@ const selectInteraction = new Select({
   hitTolerance: 5
 })
 map.addInteraction(selectInteraction)
+
 // Appear overlayerLayer on select
 selectInteraction.on('select', function (e) {
   overlayLayer.setPosition(undefined)

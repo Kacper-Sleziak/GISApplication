@@ -9,16 +9,16 @@ import { getDistance } from 'ol/sphere.js'
 import { subwayPointStyle } from '../../styles'
 import axios from 'axios'
 import Collection from 'ol/Collection'
+import { drawStyle } from '../../styles'
 
 const source = new VectorSource()
 const vectorDrawLayer = new VectorLayer({
   source,
-  title: 'DrawLayer'
+  title: 'DrawLayer',
+  style: drawStyle
 })
 
 map.addLayer(vectorDrawLayer)
-const modify = new Modify({ source })
-map.addInteraction(modify)
 
 // variables for later use
 let center, radius
@@ -94,6 +94,7 @@ draw.on('drawend', function () {
       // Setting layersGroup
       subwayStationAreaLayerGroup.setLayers(subwayCollection)
       subwayStationAreaLayerGroup.setVisible(true)
+      map.removeLayer(subwayStationAreaLayerGroup)
       map.addLayer(subwayStationAreaLayerGroup)
     })
 
@@ -108,3 +109,4 @@ draw.on('drawstart', function () {
 })
 
 export default draw
+export { source }

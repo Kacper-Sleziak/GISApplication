@@ -5,5 +5,6 @@ import subwaySettingPointsInitializer from './src/subway/showAll/setup'
 import visibilityHandlerInitializer from './src/subway/showAll/handler'
 import interactionsHandlerInitializer from './src/subway/overlayLabelInteractions'
 import drawAreaHandlernItializer from './src/subway/drawArea/handler'
+import displayHandlerInitializer from './src/displayHandler'
 
 import boundariesInitializer from './src/boundaries'

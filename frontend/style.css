@@ -45,6 +45,7 @@ html, body {
 }
 
 #feature-name {
+  transition-duration: 1s;
   background-color: rgba(85, 85, 85, 0.712);
   width: 150px;
   color: #fff;

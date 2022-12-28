@@ -1,26 +1,13 @@
-import { map, subwayStationLayerGroup } from '../../map'
-
-const drawStationsStatmentsCheck = (zoomStatment, isShowAllSelected) => {
-  const featureNameLabel = document.getElementById('feature-name')
-  console.log()
-  if (isShowAllSelected && zoomStatment) {
-    subwayStationLayerGroup.setVisible(true)
-  } else {
-    subwayStationLayerGroup.setVisible(false)
-    featureNameLabel.style.visibility = 'hidden'
-  }
-}
-
-// Stations will show on map when both of parameters will be set on true
-let zoomStatment = true
-let isShowAllSelected = true
+import { source } from '../drawArea/setup'
+import { displayStationsStatmentsCheck } from '../../displayHandler'
 
 const subwaysShowAll = document.getElementById('showAll')
 const subwaysInArea = document.getElementById('inArea')
 const drawButtonContainer = document.getElementById('draw_button_con')
 const drawButton = document.getElementById('drawBT')
+const featureNameLabel = document.getElementById('feature-name')
 
-// Event Listener for displaying subway stations
+// Event Listener for displaying subway stations on click
 subwaysShowAll.addEventListener('click', function () {
   if (subwaysInArea.className === 'dropdown-item active') {
     subwaysShowAll.className = 'dropdown-item active'
@@ -28,24 +15,13 @@ subwaysShowAll.addEventListener('click', function () {
     drawButtonContainer.style.visibility = 'hidden'
     drawButton.innerText = 'Draw'
     drawButton.className = 'btn btn-success'
+    featureNameLabel.style.visibility = 'hidden'
 
-    isShowAllSelected = true
-    drawStationsStatmentsCheck(zoomStatment, isShowAllSelected)
-  }
-})
+    displayStationsStatmentsCheck()
+    // drawStationsStatmentsCheck(zoomStatment)
 
-// Event Listener
-// Checking if zoom is big enough to show subway stations
-const currZoom = map.getView().getZoom()
-map.on('moveend', function (e) {
-  const newZoom = map.getView().getZoom()
-  if (currZoom !== newZoom) {
-    if (newZoom >= 10) {
-      zoomStatment = true
-    } else {
-      zoomStatment = false
-    }
-    drawStationsStatmentsCheck(zoomStatment, isShowAllSelected)
+    // clearing draw
+    source.clear()
   }
 })
 

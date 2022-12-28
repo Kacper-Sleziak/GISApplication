@@ -35,4 +35,14 @@ const boundariesCityStyle = new Style({
   })
 })
 
-export { subwayPointStyle, subwayPointStyleClicked, boundariesCityStyle }
+const drawStyle = new Style({
+  fill: new Fill({
+    color: [255, 176, 41, 0.2]
+  }),
+  stroke: new Stroke({
+    color: [107, 107, 107, 1],
+    width: 1.5,
+    lineDash: [30, 30]
+  })
+})
+export { subwayPointStyle, subwayPointStyleClicked, boundariesCityStyle, drawStyle }
