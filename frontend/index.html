@@ -63,9 +63,24 @@
       </div>
     </div>
 
+   <div id="draw_main_container">
+    <div id="draw_mode_choose"> 
+      <div class="btn-group dropup">
+        <button class="btn btn-light dropdown-toggle" type="button" id="chooseDrawModeBT" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Circle
+        </button>
+        <div class="dropdown-menu" aria-labelledby="chooseLayerBT" id="chooseDrawMode">
+          <a class="dropdown-item active" id="Circle" href="#">Circle</a>
+          <a class="dropdown-item" id="Polygon" href="#">Polygon</a>
+          <a class="dropdown-item" id="FreeHand" href="#">Free Hand</a>
+        </div>
+      </div>
+    </div>
+
     <div id="draw_button_con">
       <button type="button" id="drawBT" class="btn btn-success">Draw</button>
     </div>
+   </div>
 
     <div id="feature-name"></div>
 

@@ -1,4 +1,5 @@
 from django.db import connection
+from .utils import convert_coords_arr_to_string
 
 def get_subway_stations_as_geogs():
     """
@@ -37,6 +38,25 @@ def get_subway_stations_as_geogs_in_area(X, Y, radius):
             Y,
             radius
         ))
+        rows = cursor.fetchall()
+
+    return rows
+
+def get_subway_stations_as_geogs_in_polygon_area(coords):
+    coords = convert_coords_arr_to_string(coords)
+
+    with connection.cursor() as cursor:
+        cursor.execute(
+        """
+        SELECT 
+            ST_X (ST_Transform (geom, 4326)),
+            ST_Y (ST_Transform (geom, 4326)),
+            name
+        FROM nyc_subway_stations
+        WHERE ST_Intersects(geom, ST_Transform(ST_GeomFromText('POLYGON((%s))',4326),ST_SRID(geom)))
+        """ % (
+            coords
+        )) 
         rows = cursor.fetchall()
 
     return rows

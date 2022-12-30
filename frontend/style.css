@@ -70,14 +70,20 @@ html, body {
   justify-content: center;
 }
 
-#draw_button_con {
-  visibility: hidden;
-  bottom: 5%;
-  right: 5%;
-  position: absolute;
-}
 
 .dropdown {
   margin-right: 5px;
 }
 
+
+#draw_main_container {
+  visibility:hidden;
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  bottom: 3%;
+  right: 2%;
+  position: absolute;
+}

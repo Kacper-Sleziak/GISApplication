@@ -1,24 +1,29 @@
 import { map, subwayStationAreaLayerGroup } from '../../map'
 import draw from './setup'
+import { changeDrawType } from './setup'
 import { displayStationsStatmentsCheck } from '../displayHandler'
 import Collection from 'ol/Collection'
 
 const subwaysInArea = document.getElementById('inArea')
-const drawButtonContainer = document.getElementById('draw_button_con')
 const subwaysShowAll = document.getElementById('showAll')
 const featureNameLabel = document.getElementById('feature-name')
+const drawMainContainer = document.getElementById('draw_main_container')
+
+// Setup default value exported from setup file
+// Value will be changed later
+let drawInteraction = draw
 
 // Hanling switching to drawing mode
 const drawButton = document.getElementById('drawBT')
 drawButton.addEventListener('click', function () {
   if (drawButton.innerText === 'Draw') {
-    drawButton.innerText = 'Drawing in progress'
+    drawButton.innerText = 'Drawing in progress...'
     drawButton.className = 'btn btn-warning'
-    map.addInteraction(draw)
+    map.addInteraction(drawInteraction)
   } else {
     drawButton.innerText = 'Draw'
     drawButton.className = 'btn btn-success'
-    map.removeInteraction(draw)
+    map.removeInteraction(drawInteraction)
   }
 })
 
@@ -31,12 +36,36 @@ subwaysInArea.addEventListener('click', function () {
 
     subwaysInArea.className = 'dropdown-item active'
     subwaysShowAll.className = 'dropdown-item'
-    drawButtonContainer.style.visibility = 'visible'
+    drawMainContainer.style.visibility = 'visible'
     featureNameLabel.style.visibility = 'hidden'
 
     displayStationsStatmentsCheck()
   }
 })
+
+const drawModes = document.getElementById('chooseDrawMode').children
+const chooseDrawModeBT = document.getElementById('chooseDrawModeBT')
+
+const clearActualMode = () => {
+  for (const drawMode of drawModes) {
+    drawMode.className = 'dropdown-item'
+  }
+}
+
+// Handling chaning drawing mode
+for (const drawMode of drawModes) {
+  drawMode.addEventListener('click', function () {
+    // Prevent from choosing again same mode
+    if (drawMode.className !== 'dropdown-item active') {
+      clearActualMode()
+      drawMode.className = 'dropdown-item active'
+
+      const mode = drawMode.id
+      chooseDrawModeBT.innerText = drawMode.innerText
+      drawInteraction = changeDrawType(mode)
+    }
+  })
+}
 
 const drawAreaHandlernItializer = undefined
 export default drawAreaHandlernItializer

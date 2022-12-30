@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import NycSubwayStations
 from .serializers import StationSerializer
-from .queries import get_subway_stations_as_geogs, get_subway_stations_as_geogs_in_area
+from .queries import get_subway_stations_as_geogs, get_subway_stations_as_geogs_in_area, get_subway_stations_as_geogs_in_polygon_area
 from django.utils.datastructures import MultiValueDictKeyError
 
 
@@ -48,13 +48,11 @@ class SubwayStationsGeogsInArea(APIView):
 
         def post(self, request):
             try:
-                X = float(request.data['X'])
-                Y = float(request.data['Y'])
-                radius = float(request.data['radius'])
+                coords = request.data['coords']
             except (MultiValueDictKeyError, ValueError):
                 return Response(status=status.HTTP_400_BAD_REQUEST)
-         
-            subways = get_subway_stations_as_geogs_in_area(X, Y, radius)
+            
+            subways = get_subway_stations_as_geogs_in_polygon_area(coords)
 
             for i, tuple in enumerate(subways):
                 subways[i] = tuple_to_subway_dict(tuple)

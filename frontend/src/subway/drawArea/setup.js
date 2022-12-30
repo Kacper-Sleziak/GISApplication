@@ -1,5 +1,5 @@
 import { map, subwayStationAreaLayerGroup } from '../../map'
-import { Draw, Snap } from 'ol/interaction'
+import { Draw } from 'ol/interaction'
 import { Vector as VectorSource } from 'ol/source'
 import { Vector as VectorLayer } from 'ol/layer'
 import { Feature } from 'ol'
@@ -11,19 +11,16 @@ import axios from 'axios'
 import Collection from 'ol/Collection'
 import { drawStyle } from '../../styles'
 
-const source = new VectorSource()
+// global variables
+let source, draw, coords
+
 const vectorDrawLayer = new VectorLayer({
-  source,
   title: 'DrawLayer',
   style: drawStyle
 })
-
 map.addLayer(vectorDrawLayer)
 
-// variables for later use
-let center, radius
-
-const geometryFunction = function (coordinates, geometry, projection) {
+const circleGeometryFunction = function (coordinates, geometry) {
   if (!geometry) {
     geometry = new GeometryCollection([
       new Polygon([]),
@@ -32,44 +29,68 @@ const geometryFunction = function (coordinates, geometry, projection) {
   }
 
   const geometries = geometry.getGeometries()
-  center = coordinates[0]
+  const center = coordinates[0]
   const last = coordinates[1]
-  radius = getDistance(center, last)
+  const radius = getDistance(center, last)
   const circle = circular(center, radius, 128)
 
-  geometries[0].setCoordinates(circle.getCoordinates())
+  coords = circle.getCoordinates()
+  geometries[0].setCoordinates(coords)
   geometry.setGeometries(geometries)
 
   return geometry
 }
 
-const draw = new Draw({
-  source,
-  type: 'Circle',
-  active: false,
-  geometryFunction
-})
+const createDrawInteraction = (type, freehand) => {
+  source = new VectorSource({})
+  vectorDrawLayer.setSource(source)
 
-const snap = new Snap({ source })
-map.addInteraction(snap)
+  if (type === 'Circle') {
+    draw = new Draw({
+      source,
+      type,
+      freehand,
+      geometryFunction: circleGeometryFunction
+    })
+  } else {
+    draw = new Draw({
+      source,
+      type,
+      freehand
+    })
+  }
+  // Event listeneres
+  source.on('addfeature', function (evt) {
+    const feature = evt.feature
+    if (type !== 'Circle') {
+      coords = feature.getGeometry().getCoordinates()
+    }
+    createPointsOnDrawnArea()
+  })
 
-// Event listener on drawing end
-draw.on('drawend', function () {
-  const X = center[0]
-  const Y = center[1]
+  draw.on('drawstart', function () {
+    source.clear()
+  })
 
+  draw.on('drawend', function () {
+    source.clear()
+    map.removeInteraction(draw)
+    const drawButton = document.getElementById('drawBT')
+    drawButton.innerText = 'Draw'
+    drawButton.className = 'btn btn-success'
+  })
+}
+
+const createPointsOnDrawnArea = () => {
   const subwayCollection = new Collection()
-
   axios
     .post('http://127.0.0.1:8000/subway/area/', {
-      X,
-      Y,
-      radius
+      coords
     })
     .then((response) => {
       const subwayStations = response.data
       subwayStations.forEach(station => {
-        // Reading x and y from API
+      // Reading x and y from API
         const x = station.coordinates[0]
         const y = station.coordinates[1]
 
@@ -97,16 +118,21 @@ draw.on('drawend', function () {
       map.removeLayer(subwayStationAreaLayerGroup)
       map.addLayer(subwayStationAreaLayerGroup)
     })
+}
 
-  map.removeInteraction(draw)
-  const drawButton = document.getElementById('drawBT')
-  drawButton.innerText = 'Draw'
-  drawButton.className = 'btn btn-success'
-})
+// Setting Default Value
+createDrawInteraction('Circle', false)
 
-draw.on('drawstart', function () {
-  source.clear()
-})
-
+// Handling Change of Draw Type
+const changeDrawType = (mode) => {
+  if (mode === 'Circle') {
+    createDrawInteraction('Circle', false)
+  } else if (mode === 'FreeHand') {
+    createDrawInteraction('Polygon', true)
+  } else if (mode === 'Polygon') {
+    createDrawInteraction('Polygon', false)
+  }
+  return draw
+}
 export default draw
-export { source }
+export { source, changeDrawType }
