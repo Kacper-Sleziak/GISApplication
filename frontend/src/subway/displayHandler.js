@@ -4,7 +4,7 @@ let zoomStatment = true
 const subwaysShowAll = document.getElementById('showAll')
 
 const displayStationsStatmentsCheck = () => {
-  const featureNameLabel = document.getElementById('feature-name')
+  const featureNameLabel = document.getElementById('feature-label')
   if (zoomStatment) {
     if (subwaysShowAll.className === 'dropdown-item active') {
       subwayStationLayerGroup.setVisible(true)

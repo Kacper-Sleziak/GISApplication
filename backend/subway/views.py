@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import NycSubwayStations
 from .serializers import StationSerializer
-from .queries import get_subway_stations_as_geogs, get_subway_stations_as_geogs_in_area, get_subway_stations_as_geogs_in_polygon_area
+from .queries import get_subway_stations_as_geogs, get_subway_stations_as_geogs_in_polygon_area
 from django.utils.datastructures import MultiValueDictKeyError
 
 
@@ -21,10 +21,14 @@ def tuple_to_subway_dict(tuple):
     x = tuple[0]
     y = tuple[1]
     name = tuple[2]
+    borough = tuple[3]
+    express = tuple[4]
     
     dict = {
         "coordinates": [x, y],
-        "name": name
+        "name": name,
+        "borough": borough,
+        "express": express
     }
     return dict
 
@@ -33,7 +37,12 @@ class SubwayStationsGeogs(APIView):
     View returns all subway stations
     """
     def get(self, request):
-        subways = get_subway_stations_as_geogs()
+        "Getting paramas"
+        borough = request.GET.get('borough')
+        express = request.GET.get('express')
+        name = request.GET.get('name')
+        
+        subways = get_subway_stations_as_geogs(borough, name, express)
 
         for i, tuple in enumerate(subways):
             subways[i] = tuple_to_subway_dict(tuple)

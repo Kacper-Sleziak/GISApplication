@@ -6,8 +6,9 @@ import Collection from 'ol/Collection'
 
 const subwaysInArea = document.getElementById('inArea')
 const subwaysShowAll = document.getElementById('showAll')
-const featureNameLabel = document.getElementById('feature-name')
+const featureNameLabel = document.getElementById('feature-label')
 const drawMainContainer = document.getElementById('draw_main_container')
+const filterContainer = document.getElementById('filters_con')
 
 // Setup default value exported from setup file
 // Value will be changed later
@@ -19,10 +20,12 @@ drawButton.addEventListener('click', function () {
   if (drawButton.innerText === 'Draw') {
     drawButton.innerText = 'Drawing in progress...'
     drawButton.className = 'btn btn-warning'
+    chooseDrawModeBT.className = 'btn btn-light dropdown-toggle disabled'
     map.addInteraction(drawInteraction)
   } else {
     drawButton.innerText = 'Draw'
     drawButton.className = 'btn btn-success'
+    chooseDrawModeBT.className = 'btn btn-light dropdown-toggle'
     map.removeInteraction(drawInteraction)
   }
 })
@@ -38,6 +41,7 @@ subwaysInArea.addEventListener('click', function () {
     subwaysShowAll.className = 'dropdown-item'
     drawMainContainer.style.visibility = 'visible'
     featureNameLabel.style.visibility = 'hidden'
+    filterContainer.style.visibility = 'hidden'
 
     displayStationsStatmentsCheck()
   }

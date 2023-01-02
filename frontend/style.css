@@ -44,7 +44,7 @@ html, body {
 
 }
 
-#feature-name {
+#feature-label {
   transition-duration: 1s;
   background-color: rgba(85, 85, 85, 0.712);
   width: 150px;
@@ -57,12 +57,20 @@ html, body {
   bottom: 100%;
   left: 50%;
   margin-left: -80px;
-  border-radius: 20px ;
+  border-radius: 20px;
+}
+
+#feature-name {
+  margin-bottom: 5px;
+}
+
+#feature-express {
+  text-decoration: underline;
 }
 
 #main_con {
   top: 20px;
-  left: 5%;
+  left: 8%;
   position: absolute;
   display: flex;
   align-content: center;
@@ -86,4 +94,26 @@ html, body {
   bottom: 3%;
   right: 2%;
   position: absolute;
+}
+
+#layers_panel {
+  top: 0;
+  width: 15%;
+  height: 25%;
+  position: absolute;
+  background-color: white;
+}
+
+#filters_con {
+  position: absolute;
+  padding: 10px;
+  top: 35%;
+  right: 0.5%;
+  width: 12%;
+  background-color: rgba(255, 255, 255, 0.822);
+  border-radius: 7%;
+}
+
+#filters_con h3 {
+  margin-bottom: 20px;
 }

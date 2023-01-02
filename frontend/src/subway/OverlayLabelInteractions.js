@@ -7,9 +7,9 @@ import { Overlay } from 'ol'
 let currZoom = map.getView().getZoom()
 
 // Ading overlay
-const overlayFeatureName = document.getElementById('feature-name')
+const overlayFeature = document.getElementById('feature-label')
 const overlayLayer = new Overlay({
-  element: overlayFeatureName,
+  element: overlayFeature,
   positioning: 'top-center',
   offset: [0, -currZoom]
 })
@@ -43,12 +43,19 @@ selectInteraction.on('select', function (e) {
   const selectedFeature = e.selected
 
   if (selectedFeature[0]) {
-    const featureNameLabel = document.getElementById('feature-name')
-    featureNameLabel.style.visibility = 'visible'
+    overlayFeature.style.visibility = 'visible'
 
-    const subwayLabel = selectedFeature[0].values_.label
-    const coordinates = selectedFeature[0].values_.geometry.flatCoordinates
-    overlayFeatureName.innerHTML = subwayLabel
+    const featureNameLabel = document.getElementById('feature-name')
+    const featureBorough = document.getElementById('feature-borough')
+    const featureExpress = document.getElementById('feature-express')
+
+    const subway = selectedFeature[0].values_
+    const coordinates = subway.geometry.flatCoordinates
+
+    featureNameLabel.innerHTML = subway.label_name
+    featureBorough.innerHTML = subway.label_borough
+    featureExpress.innerHTML = subway.label_express
+
     overlayLayer.setPosition(coordinates)
   }
 })

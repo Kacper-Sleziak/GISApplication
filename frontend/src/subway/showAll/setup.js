@@ -21,7 +21,9 @@ axios
       // Seting feature
       const featurePoint = new Feature({
         name: 'Subway',
-        label: station.name,
+        label_name: station.name,
+        label_borough: station.borough,
+        label_express: station.express,
         geometry: new Point([x, y])
       })
 

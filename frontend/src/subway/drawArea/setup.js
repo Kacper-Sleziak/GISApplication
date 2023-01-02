@@ -62,6 +62,8 @@ const createDrawInteraction = (type, freehand) => {
   // Event listeneres
   source.on('addfeature', function (evt) {
     const feature = evt.feature
+
+    // If type === Circle, coords are taking from custome geometryFunction
     if (type !== 'Circle') {
       coords = feature.getGeometry().getCoordinates()
     }
@@ -73,9 +75,11 @@ const createDrawInteraction = (type, freehand) => {
   })
 
   draw.on('drawend', function () {
-    source.clear()
     map.removeInteraction(draw)
     const drawButton = document.getElementById('drawBT')
+    const chooseDrawModeBT = document.getElementById('chooseDrawModeBT')
+
+    chooseDrawModeBT.className = 'btn btn-light dropdown-toggle'
     drawButton.innerText = 'Draw'
     drawButton.className = 'btn btn-success'
   })
@@ -97,7 +101,9 @@ const createPointsOnDrawnArea = () => {
         // Seting feature
         const featurePoint = new Feature({
           name: 'Subway',
-          label: station.name,
+          label_name: station.name,
+          label_borough: station.borough,
+          label_express: station.express,
           geometry: new Point([x, y])
         })
 

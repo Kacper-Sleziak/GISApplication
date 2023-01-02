@@ -5,8 +5,9 @@ const subwaysShowAll = document.getElementById('showAll')
 const subwaysInArea = document.getElementById('inArea')
 // const drawButtonContainer = document.getElementById('draw_button_con')
 const drawButton = document.getElementById('drawBT')
-const featureNameLabel = document.getElementById('feature-name')
+const featureNameLabel = document.getElementById('feature-label')
 const drawMainContainer = document.getElementById('draw_main_container')
+const filterContainer = document.getElementById('filters_con')
 
 // Event Listener for displaying subway stations on click
 subwaysShowAll.addEventListener('click', function () {
@@ -17,6 +18,7 @@ subwaysShowAll.addEventListener('click', function () {
     drawButton.innerText = 'Draw'
     drawButton.className = 'btn btn-success'
     featureNameLabel.style.visibility = 'hidden'
+    filterContainer.style.visibility = 'visible'
 
     displayStationsStatmentsCheck()
 
