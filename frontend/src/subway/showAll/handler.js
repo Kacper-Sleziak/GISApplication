@@ -1,4 +1,5 @@
 import { source } from '../drawArea/setup'
+import { createPointsOnMap } from './setup'
 import { displayStationsStatmentsCheck } from '../displayHandler'
 
 const subwaysShowAll = document.getElementById('showAll')
@@ -25,6 +26,49 @@ subwaysShowAll.addEventListener('click', function () {
     // clearing draw
     source.clear()
   }
+})
+
+const filterButton = document.getElementById('filterBT')
+const boroughSelect = document.getElementById('boroughSelect')
+const expressSelect = document.getElementById('expressSelect')
+const nameInput = document.getElementById('nameInput')
+
+// Event listener for filtering
+filterButton.addEventListener('click', function () {
+  const boroughOption = boroughSelect.options[boroughSelect.selectedIndex].value
+  const expressOption = expressSelect.options[expressSelect.selectedIndex].value
+  const nameValue = nameInput.value
+
+  let nameArg, boroughArg, expressArg
+
+  if (boroughOption !== '---') {
+    boroughArg = boroughOption
+  }
+
+  if (expressOption !== '---') {
+    if (expressOption === 'YES') {
+      expressArg = 'express'
+    } else if (expressOption === 'NO') {
+      expressArg = 'NULL'
+    }
+  }
+
+  if (nameValue !== '') {
+    nameArg = nameValue
+  }
+
+  createPointsOnMap(nameArg, boroughArg, expressArg)
+})
+
+const clearButton = document.getElementById('clearFilterBT')
+
+// Event listener for clearing filters
+clearButton.addEventListener('click', function () {
+  boroughSelect.selectedIndex = 0
+  expressSelect.selectedIndex = 0
+  nameInput.value = ''
+
+  createPointsOnMap()
 })
 
 const visibilityHandlerInitializer = undefined

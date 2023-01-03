@@ -87,13 +87,13 @@
     <form>
       <div class="form-group">
         <label for="exampleInputEmail1">Name</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Type name">
+        <input class="form-control" id="nameInput" aria-describedby="emailHelp" placeholder="Type name">
       </div>
       <div class="form-group">
         <label for="exampleFormControlSelect1">Borough</label>
-        <select class="form-control" id="exampleFormControlSelect1">
+        <select class="form-control" id="boroughSelect">
           <option>---</option>
-          <option>The Bronx</option>
+          <option>Bronx</option>
           <option>Brooklyn</option>
           <option>Manhattan</option>
           <option>Queens</option>
@@ -102,13 +102,14 @@
       </div>
       <div class="form-group">
         <label for="exampleFormControlSelect1">Express</label>
-        <select class="form-control" id="exampleFormControlSelect1">
+        <select class="form-control" id="expressSelect">
           <option>---</option>
           <option>YES</option>
           <option>NO</option>
         </select>
       </div>
-      <button type="submit" class="btn btn-primary mb-2">Filter</button>
+      <button type="submit" id="filterBT" class="btn btn-primary mb-2">Filter</button>
+      <button type="submit" id="clearFilterBT" class="btn btn-danger mb-2">Clear Filters</button>
     </form>
   </div>
 
