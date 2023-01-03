@@ -36,7 +36,7 @@ def get_subway_stations_as_geogs(borough, name, express):
             query += "WHERE "
         
         if key == 'name':
-            query += f"name LIKE '%{value}%'"
+            query += f"LOWER ( name ) LIKE '%{value.lower()}%'"
         elif value == 'NULL':
             query += "%s IS NULL " %(key)
         else:
@@ -77,12 +77,16 @@ def get_subway_stations_as_geogs_in_area(X, Y, radius):
 
     return rows
 
-def get_subway_stations_as_geogs_in_polygon_area(coords):
+def get_subway_stations_as_geogs_in_polygon_area(coords, radius):
+    """
+    Return list of tuples in format (x_coordinate, y_coordinate, subway_name)
+    for given paramatersm where coords are vertexes of polygon and radius is offset of this polygon.
+    Query use T_Intersects function when radius is 0 for better permormance when offset is 
+    unnecessary
+    """
     coords = convert_coords_arr_to_string(coords)
 
-    with connection.cursor() as cursor:
-        cursor.execute(
-        """
+    query = """
         SELECT 
             ST_X (ST_Transform (geom, 4326)),
             ST_Y (ST_Transform (geom, 4326)),
@@ -90,10 +94,28 @@ def get_subway_stations_as_geogs_in_polygon_area(coords):
             borough,
             express
         FROM nyc_subway_stations
-        WHERE ST_Intersects(geom, ST_Transform(ST_GeomFromText('POLYGON((%s))',4326),ST_SRID(geom)))
-        """ % (
+        WHERE ST_DWithin(geom, ST_Transform(ST_GeomFromText('POLYGON((%s))',4326),ST_SRID(geom)), (%i))
+    """% (
+            coords,
+            radius
+        )
+
+    if radius == 0:
+        query = """
+            SELECT 
+                ST_X (ST_Transform (geom, 4326)),
+                ST_Y (ST_Transform (geom, 4326)),
+                name,
+                borough,
+                express
+            FROM nyc_subway_stations
+            WHERE ST_Intersects(geom, ST_Transform(ST_GeomFromText('POLYGON((%s))',4326),ST_SRID(geom)))
+        """% (
             coords
-        )) 
+        )
+
+    with connection.cursor() as cursor:
+        cursor.execute(query) 
         rows = cursor.fetchall()
 
     return rows

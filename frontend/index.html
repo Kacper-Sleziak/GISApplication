@@ -64,6 +64,15 @@
     </div>
 
    <div id="draw_main_container">
+    <h4 id="offsetDisplay">0</h4>
+
+    <form>
+      <div class="form-group">
+        <label for="formControlRange">Draw Offset [m]</label>
+        <input type="range" min="0" max="1000" value="0" class="form-control-range" id="offsetSlider">
+      </div>
+    </form>
+
     <div id="draw_mode_choose"> 
       <div class="btn-group dropup">
         <button class="btn btn-light dropdown-toggle" type="button" id="chooseDrawModeBT" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

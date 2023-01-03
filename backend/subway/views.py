@@ -58,10 +58,11 @@ class SubwayStationsGeogsInArea(APIView):
         def post(self, request):
             try:
                 coords = request.data['coords']
+                radius = int(request.data['radius'])
             except (MultiValueDictKeyError, ValueError):
                 return Response(status=status.HTTP_400_BAD_REQUEST)
             
-            subways = get_subway_stations_as_geogs_in_polygon_area(coords)
+            subways = get_subway_stations_as_geogs_in_polygon_area(coords, radius)
 
             for i, tuple in enumerate(subways):
                 subways[i] = tuple_to_subway_dict(tuple)

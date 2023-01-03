@@ -87,9 +87,12 @@ const createDrawInteraction = (type, freehand) => {
 
 const createPointsOnDrawnArea = () => {
   const subwayCollection = new Collection()
+  const radius = document.getElementById('offsetSlider').value
+
   axios
     .post('http://127.0.0.1:8000/subway/area/', {
-      coords
+      coords,
+      radius
     })
     .then((response) => {
       const subwayStations = response.data

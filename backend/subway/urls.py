@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import SubwayStationList, SubwayStationsGeogs, SubwayStationsGeogsInArea
+from .views import SubwayStationsGeogs, SubwayStationsGeogsInArea
 
 urlpatterns = [
     path("", SubwayStationsGeogs.as_view()),

@@ -96,6 +96,14 @@ html, body {
   position: absolute;
 }
 
+#draw_main_container form {
+  margin-right: 10px;
+}
+
+#draw_main_container h4 {
+  margin-right: 10px;
+}
+
 #layers_panel {
   top: 0;
   width: 15%;

@@ -32,14 +32,7 @@ const addParamsToLink = (link, name, borough, express) => {
   return link
 }
 
-// const clearLayer = () => {
-//   const emptyCollection = new Collection({})
-//   subwayStationLayerGroup.setLayers(emptyCollection)
-// }
-
 const createPointsOnMap = (name, borough, express) => {
-  // clearLayer()
-
   let link = 'http://127.0.0.1:8000/subway/'
   link = addParamsToLink(link, name, borough, express)
 

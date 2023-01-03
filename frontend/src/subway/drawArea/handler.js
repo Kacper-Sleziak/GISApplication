@@ -10,6 +10,9 @@ const featureNameLabel = document.getElementById('feature-label')
 const drawMainContainer = document.getElementById('draw_main_container')
 const filterContainer = document.getElementById('filters_con')
 
+const offsetSlider = document.getElementById('offsetSlider')
+const offsetDisplay = document.getElementById('offsetDisplay')
+
 // Setup default value exported from setup file
 // Value will be changed later
 let drawInteraction = draw
@@ -36,6 +39,9 @@ subwaysInArea.addEventListener('click', function () {
     // clear previously found subways from area
     const emptyCollection = new Collection()
     subwayStationAreaLayerGroup.setLayers(emptyCollection)
+
+    offsetSlider.value = 0
+    offsetDisplay.innerHTML = `${offsetSlider.value}`
 
     subwaysInArea.className = 'dropdown-item active'
     subwaysShowAll.className = 'dropdown-item'
@@ -70,6 +76,11 @@ for (const drawMode of drawModes) {
     }
   })
 }
+
+// Handling displaing slider value
+offsetSlider.addEventListener('input', function () {
+  offsetDisplay.innerHTML = `${offsetSlider.value}`
+})
 
 const drawAreaHandlernItializer = undefined
 export default drawAreaHandlernItializer
