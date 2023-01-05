@@ -5,8 +5,9 @@ import OSM from 'ol/source/OSM'
 import LayerGroup from 'ol/layer/Group'
 import ScaleLine from 'ol/control/ScaleLine'
 import FullScreen from 'ol/control/FullScreen'
-import ZoomSlider from 'ol/control/ZoomSlider'
 import { useGeographic } from 'ol/proj'
+import VectorSource from 'ol/source/Vector'
+import VectorLayer from 'ol/layer/Vector'
 
 useGeographic()
 
@@ -19,8 +20,7 @@ const map = new Map({
   }),
   controls: ([
     new ScaleLine(),
-    new FullScreen(),
-    new ZoomSlider()
+    new FullScreen()
   ])
 })
 
@@ -30,6 +30,12 @@ const subwayStationLayerGroup = new LayerGroup({
 
 const subwayStationAreaLayerGroup = new LayerGroup({
   visible: false
+})
+
+const boundariesVectorLayer = new VectorLayer({
+  source: new VectorSource({}),
+  visible: true,
+  title: 'BoundariesLayer'
 })
 
 const openStreetMapStandard = new TileLayer({
@@ -91,4 +97,4 @@ for (const layerElement of layerElements) {
   })
 }
 
-export { map, subwayStationLayerGroup, subwayStationAreaLayerGroup }
+export { map, subwayStationLayerGroup, subwayStationAreaLayerGroup, boundariesVectorLayer }

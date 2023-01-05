@@ -20,11 +20,14 @@ const displayStationsStatmentsCheck = () => {
   }
 }
 
+
 const currZoom = map.getView().getZoom()
 map.on('moveend', function (e) {
   const newZoom = map.getView().getZoom()
-  if (currZoom !== newZoom) {
-    if (newZoom >= 10) {
+  let switcherStatment = document.getElementById('subwaysLayer').checked
+
+  if (currZoom !== newZoom && switcherStatment) {
+    if (newZoom >= 9) {
       zoomStatment = true
     } else {
       zoomStatment = false

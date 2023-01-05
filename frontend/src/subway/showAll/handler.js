@@ -14,7 +14,6 @@ const drawMainContainer = document.getElementById('draw_main_container')
 // Filters
 const filterContainer = document.getElementById('filters_con')
 const clearButton = document.getElementById('clearFilterBT')
-const filterButton = document.getElementById('filterBT')
 const boroughSelect = document.getElementById('boroughSelect')
 const expressSelect = document.getElementById('expressSelect')
 const nameInput = document.getElementById('nameInput')
@@ -46,8 +45,7 @@ subwaysShowAll.addEventListener('click', function () {
   }
 })
 
-// Event listener for filtering
-filterButton.addEventListener('click', function () {
+const filterChangeHandler = () => {
   const boroughOption = boroughSelect.options[boroughSelect.selectedIndex].value
   const expressOption = expressSelect.options[expressSelect.selectedIndex].value
   const nameValue = nameInput.value
@@ -71,6 +69,15 @@ filterButton.addEventListener('click', function () {
   }
 
   createPointsOnMap(nameArg, boroughArg, expressArg)
+}
+
+// Event listeners for filtering
+filterContainer.addEventListener('change', function () {
+  filterChangeHandler()
+})
+
+nameInput.addEventListener('input', function () {
+  filterChangeHandler()
 })
 
 // Event listener for clearing filters

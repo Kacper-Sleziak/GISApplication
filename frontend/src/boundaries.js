@@ -1,10 +1,8 @@
 import { boundariesCityStyle } from './styles'
-import VectorSource from 'ol/source/Vector'
 import Polygon from 'ol/geom/Polygon'
 import { Feature } from 'ol'
-import VectorLayer from 'ol/layer/Vector'
 import axios from 'axios'
-import { map } from './map'
+import { map, boundariesVectorLayer } from './map'
 
 const boundaryArr = []
 
@@ -25,15 +23,10 @@ axios
       name: 'Boundaries'
     })
 
-    const vectorLayer = new VectorLayer({
-      source: new VectorSource({}),
-      visible: true,
-      title: 'BoundariesLayer',
-      style: boundariesCityStyle
-    })
+    boundariesVectorLayer.setStyle(boundariesCityStyle)
 
-    vectorLayer.getSource().addFeature(feature)
-    map.addLayer(vectorLayer)
+    boundariesVectorLayer.getSource().addFeature(feature)
+    map.addLayer(boundariesVectorLayer)
   })
 
 const boundariesInitializer = undefined

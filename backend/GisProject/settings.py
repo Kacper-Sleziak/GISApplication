@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'airport',
     'subway',
+    'neighborhood',
     'shell_plus',
 ]
 
