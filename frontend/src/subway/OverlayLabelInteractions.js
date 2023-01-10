@@ -3,8 +3,8 @@ import { map } from '../map'
 import { subwayPointStyleClicked } from '../styles'
 import { singleClick } from 'ol/events/condition'
 import { Overlay } from 'ol'
-import Projection from 'ol/proj/Projection.js';
-import {transform} from 'ol/proj';
+import Projection from 'ol/proj/Projection.js'
+import { transform } from 'ol/proj'
 
 let currZoom = map.getView().getZoom()
 
@@ -61,11 +61,11 @@ selectInteraction.on('select', function (e) {
     featureExpress.innerHTML = subway.label_express
     coordinates1.innerHTML = `[${coordinates[0].toFixed(3)}, 
     ${coordinates[1].toFixed(3)}]`
-    
+
     const src = new Projection({ code: 'EPSG:4326' })
     const dest = new Projection({ code: 'EPSG:3857' })
     const transformedCoordinates = transform(coordinates, src, dest)
-    
+
     coordinates2.innerHTML = `[${Math.round(transformedCoordinates[0])},
     ${Math.round(transformedCoordinates[1])}]`
 

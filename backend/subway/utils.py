@@ -1,4 +1,4 @@
-def convert_coords_arr_to_string(coords_arr):  
+def convert_coords_arr_to_string(coords_arr):
     coords_arr = coords_arr[0]
     last_index = len(coords_arr) - 1
     coords_string = ""

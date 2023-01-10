@@ -3,8 +3,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-GDAL_LIBRARY_PATH='C:\\OSGeo4W\\bin\\gdal305.dll'
-GEOS_LIBRARY_PATH='C:\\OSGeo4W\\bin\\geos_c.dll'
+GDAL_LIBRARY_PATH = 'C:\\OSGeo4W\\bin\\gdal305.dll'
+GEOS_LIBRARY_PATH = 'C:\\OSGeo4W\\bin\\geos_c.dll'
 
 
 # Quick-start development settings - unsuitable for production
@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure-e%^&t978yrv9d28)6$5k_$q+fx5zk9n6$!0$t(_r_+c5a)vvfz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS=['*']
+ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 
 
@@ -33,9 +33,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_gis',
     'corsheaders',
-    'airport',
     'subway',
-    'neighborhood',
     'shell_plus',
 ]
 
