@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import SubwayStationsGeogs, SubwayStationsGeogsInArea
+from .views import SubwayStationsGeogsInArea, SubwayStationList
 
 urlpatterns = [
-    path("", SubwayStationsGeogs.as_view()),
+    path("", SubwayStationList.as_view()),
     path("area/", SubwayStationsGeogsInArea.as_view())
 ]

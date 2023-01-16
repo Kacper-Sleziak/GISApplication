@@ -97,7 +97,7 @@ const createPointsOnDrawnArea = () => {
     .then((response) => {
       const subwayStations = response.data
       subwayStations.forEach(station => {
-      // Reading x and y from API
+        // Reading x and y from API
         const x = station.coordinates[0]
         const y = station.coordinates[1]
 

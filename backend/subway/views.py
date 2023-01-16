@@ -1,9 +1,16 @@
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.utils.datastructures import MultiValueDictKeyError
+from django.contrib.gis.db.models.functions import Transform
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .queries import get_subway_stations_as_geogs, get_subway_stations_as_geogs_in_polygon_area
+from .models import NycSubwayStations
+from .serializers import StationSerializer
+from .filtersets import SubwayFilter
+
+
 
 def tuple_to_subway_dict(tuple):
     """
@@ -24,25 +31,15 @@ def tuple_to_subway_dict(tuple):
     }
     return dict
 
-
-class SubwayStationsGeogs(APIView):
-    """
-    View returns all subway stations
-    """
-
-    def get(self, request):
-        "Getting paramas"
-        borough = request.GET.get('borough')
-        express = request.GET.get('express')
-        name = request.GET.get('name')
-
-        subways = get_subway_stations_as_geogs(borough, name, express)
-
-        for i, tuple in enumerate(subways):
-            subways[i] = tuple_to_subway_dict(tuple)
-
-        return Response(status=status.HTTP_200_OK, data=subways)
-
+class SubwayStationList(generics.ListAPIView):
+    serializer_class = StationSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = SubwayFilter
+    
+    def get_queryset(self):
+        queryset = NycSubwayStations.objects.all()
+        queryset = queryset.extra(select={'geom': 'ST_Transform(geom, 4326)'})
+        return queryset       
 
 class SubwayStationsGeogsInArea(APIView):
     """

@@ -43,9 +43,9 @@ const createPointsOnMap = (name, borough, express) => {
     .then(response => {
       const subwayStations = response.data
       subwayStations.forEach(station => {
-      // Reading x and y from API
-        const x = station.coordinates[0]
-        const y = station.coordinates[1]
+        // Reading x and y from API
+        const x = station.geom.coordinates[0]
+        const y = station.geom.coordinates[1]
 
         // Seting feature
         const featurePoint = new Feature({

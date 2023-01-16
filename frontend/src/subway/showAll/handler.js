@@ -60,7 +60,7 @@ const filterChangeHandler = () => {
     if (expressOption === 'YES') {
       expressArg = 'express'
     } else if (expressOption === 'NO') {
-      expressArg = 'NULL'
+      expressArg = 'None'
     }
   }
 
