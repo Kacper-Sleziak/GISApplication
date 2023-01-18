@@ -50,9 +50,6 @@ class SubwayStationsInAreaView(APIView):
         for sub in subways:
             if drawn_area.contains(sub.geom):
                 subways_in_area.append(sub)
-        try:
-            serializer = StationSerializer(subways_in_area, many=True)
-        except:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
 
+        serializer = StationSerializer(subways_in_area, many=True)
         return Response(status=status.HTTP_200_OK, data=serializer.data)
