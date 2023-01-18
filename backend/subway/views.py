@@ -2,36 +2,21 @@ from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.utils.datastructures import MultiValueDictKeyError
-from django.contrib.gis.db.models.functions import Transform
+from django.contrib.gis.geos import Polygon
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .queries import get_subway_stations_as_geogs, get_subway_stations_as_geogs_in_polygon_area
 from .models import NycSubwayStations
 from .serializers import StationSerializer
 from .filtersets import SubwayFilter
 
-
-
-def tuple_to_subway_dict(tuple):
-    """
-    Common function for views that return subway stations.
-    Converts tuple given from data base query to python dict/JSON format
-    """
-    x = tuple[0]
-    y = tuple[1]
-    name = tuple[2]
-    borough = tuple[3]
-    express = tuple[4]
-
-    dict = {
-        "coordinates": [x, y],
-        "name": name,
-        "borough": borough,
-        "express": express
-    }
-    return dict
-
 class SubwayStationList(generics.ListAPIView):
+    """
+    View returns all subways stations with given filters
+    filter as a paramas:
+    - borough
+    - name
+    - expres
+    """
     serializer_class = StationSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = SubwayFilter
@@ -44,7 +29,7 @@ class SubwayStationList(generics.ListAPIView):
 class SubwayStationsGeogsInArea(APIView):
     """
     View returns all subways stations in area.
-    Area is defined as a circle by X, Y and radius parameteres in body
+    Area is defined as a Polygon and radius parameteres in body
     """
 
     def post(self, request):
@@ -54,9 +39,21 @@ class SubwayStationsGeogsInArea(APIView):
         except (MultiValueDictKeyError, ValueError):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
-        subways = get_subway_stations_as_geogs_in_polygon_area(coords, radius)
+        drawn_area = Polygon([tuple(x) for x in coords[0]])
 
-        for i, tuple in enumerate(subways):
-            subways[i] = tuple_to_subway_dict(tuple)
+        if radius !=0:
+            buffer_width = radius / 40000000.0 * 360.0
+            drawn_area = drawn_area.buffer(buffer_width)
 
-        return Response(status=status.HTTP_200_OK, data=subways)
+        subways = NycSubwayStations.objects.all()
+        subways = subways.extra(select={'geom': 'ST_Transform(geom, 4326)'})
+
+        subways_in_area = []
+
+        for sub in subways:
+            if drawn_area.contains(sub.geom):
+                subways_in_area.append(sub)
+        
+        serializer = StationSerializer(subways_in_area, many=True)
+
+        return Response(status=status.HTTP_200_OK, data=serializer.data)
