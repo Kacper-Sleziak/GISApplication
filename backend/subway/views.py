@@ -23,7 +23,7 @@ class SubwayStationList(generics.ListAPIView):
         queryset = queryset.extra(select={'geom': 'ST_Transform(geom, 4326)'})
         return queryset       
 
-class SubwayStationsGeogsInArea(APIView):
+class SubwayStationsInAreaView(APIView):
     """
     View returns all subways stations in area.
     Area is defined as a Polygon and radius parameteres in body
