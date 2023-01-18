@@ -12,10 +12,7 @@ from .filtersets import SubwayFilter
 class SubwayStationList(generics.ListAPIView):
     """
     View returns all subways stations with given filters
-    filter as a paramas:
-    - borough
-    - name
-    - expres
+    filter as a paramas
     """
     serializer_class = StationSerializer
     filter_backends = [DjangoFilterBackend]
@@ -41,7 +38,7 @@ class SubwayStationsGeogsInArea(APIView):
 
         drawn_area = Polygon([tuple(x) for x in coords[0]])
 
-        if radius !=0:
+        if radius != 0:
             buffer_width = radius / 40000000.0 * 360.0
             drawn_area = drawn_area.buffer(buffer_width)
 
